@@ -6,20 +6,28 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+import org.springframework.security.core.Transient;
+
+@Entity
+@Table(name = "user")
 public class UserModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
     private String password;
 
-    public UserModel(String name, String password) {
-        this.username = name;
-        this.password = password;
-    }
+    @javax.persistence.Transient
+    private String passwordConfirm;
+
+    // public UserModel(String name, String password) {
+    // this.username = name;
+    // this.password = password;
+    // }
 
     public Long getId() {
         return id;
@@ -45,19 +53,28 @@ public class UserModel {
         this.password = password;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        UserModel userModel = (UserModel) o;
-        return Objects.equals(id, userModel.id) && Objects.equals(username, userModel.username);
+    // @Override
+    // public boolean equals(Object o) {
+    // if (this == o)
+    // return true;
+    // if (o == null || getClass() != o.getClass())
+    // return false;
+    // UserModel userModel = (UserModel) o;
+    // return Objects.equals(id, userModel.id) && Objects.equals(username,
+    // userModel.username);
+    // }
+
+    // @Override
+    // public int hashCode() {
+    // return Objects.hash(id, username, password);
+    // }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, password);
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 
     // @Override
